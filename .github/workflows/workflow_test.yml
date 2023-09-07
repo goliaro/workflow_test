@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v3
+
+      - name: Install Oci
+        run: pip install oci
         
       - name: Running script (START)
         run: python3 oracle_con.py --start --instance_id $OCI_INSTANCE_ID
