@@ -1,0 +1,26 @@
+name: "workflow_test"
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: workflow_test-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  my-instances:
+    runs-on: ubuntu-latest
+    name: Test for turning on/off Oracle VM
+    env:
+      OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
+      OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
+      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
+      OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
+      OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }} 
+      OCI_INSTANCE_ID: ${{ secrets.INSTANCE_ID_CATALYST }}
+    steps:
+      - name: Checkout Git Repository
+        uses: actions/checkout@v3
+        
+      - name: Running script (START)
+        run: python3 oracle_con.py --start --instance_id $OCI_INSTANCE_ID
+      
