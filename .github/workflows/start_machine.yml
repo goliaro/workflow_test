@@ -1,4 +1,4 @@
-name: "workflow_test"
+name: "start_machine"
 on:
   workflow_dispatch:
 
@@ -7,16 +7,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  my-instances:
+  start_machine:
     runs-on: ubuntu-latest
-    name: Test for turning on/off Oracle VM
+    name: Tun on the Oracle VM
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
       OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
       OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
       OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }} 
-      OCI_INSTANCE_ID: ${{ secrets.INSTANCE_ID_CATALYST }}
+      OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v3
